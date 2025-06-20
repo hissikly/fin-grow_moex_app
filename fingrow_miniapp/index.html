@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>FinGrow MiniApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="logo-bar">
+    <img src="static/imgs/mini_moex_logo.png" alt="MOEX Logo" class="logo-mini-moex">
+    <span class="logo-title">FinGrow</span>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('profile')">Профиль</button>
+    <button class="tab" onclick="showTab('deposits')">Вклады</button>
+    <button class="tab" onclick="showTab('game')">Игра</button>
+    <button class="tab" onclick="showTab('achievements')">Достижения</button>
+  </div>
+  <div id="profile" class="tab-content active">
+    <h2>Профиль</h2>
+    <div class="avatar"></div>
+    <div class="balance">Баланс: <span id="balance">1000</span> Ф</div>
+    <div class="secret">
+      <div>Секретный код с Финуслуг</div>
+      <div class="code">AB0LD12UY</div>
+      <button class="main-btn" onclick="withdraw()">Вывести Финики</button>
+    </div>
+    <div class="story">
+      <b>Сюжет</b><br>
+      Страна: Z<br>
+      Дата: 24.06.2028
+    </div>
+  </div>
+  <div id="deposits" class="tab-content">
+    <h2>Вклады</h2>
+    <div class="currency">Виртуальная валюта: <span id="currency">1200</span> Ф</div>
+    <button class="main-btn" onclick="exchange()">Обменять</button>
+    <button class="main-btn" onclick="continueGame()">Продолжить</button>
+    <div class="section">
+      <b>Финансовые инструменты</b>
+      <div class="desc">Инструменты, позволяющие увеличить ваш доход</div>
+      <div class="deposit">Вклад Т-банка 20% <span class="fin">10 фин.</span></div>
+      <div class="deposit">Инвестиции в акции <span class="fin">5 фин.</span><br><span class="warn">Менее надёжен.</span></div>
+    </div>
+  </div>
+  <div id="game" class="tab-content">
+    <h2>Новости</h2>
+    <div class="news">
+      На страну Z наложила санкции страна X.<br>
+      Экономическая ситуация ухудшилась, что влечёт риски для инвесторов.
+    </div>
+    <button class="main-btn" onclick="ignore()">Игнорировать</button>
+    <button class="main-btn" onclick="invest()">Инвестировать</button>
+  </div>
+  <div id="achievements" class="tab-content">
+    <h2>Достижения</h2>
+    <ul>
+      <li>Первый вклад открыт</li>
+      <li>Получено 1000 фиников</li>
+      <li>Пройден курс «Копить без стресса»</li>
+    </ul>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
