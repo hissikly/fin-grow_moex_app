@@ -8,11 +8,11 @@ import asyncio
 load_dotenv()
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
+MINIAPP_URL = os.getenv('MINIAPP_URL')
+
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
-# Укажите URL вашей миниаппы
-MINIAPP_URL = "https://8f41-31-129-22-66.ngrok-free.app"
 
 @dp.message(CommandStart())
 async def start(message: types.Message):

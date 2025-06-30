@@ -1,0 +1,1 @@
+const MINIAPP_URL = "https://b8ee-5-253-59-141.ngrok-free.app"

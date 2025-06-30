@@ -5,63 +5,319 @@
   <title>FinGrow MiniApp</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
 </head>
 <body>
-  <div class="logo-bar">
+  <header class="logo-bar">
     <img src="static/imgs/mini_moex_logo.png" alt="MOEX Logo" class="logo-mini-moex">
     <span class="logo-title">FinGrow</span>
-  </div>
-  <div class="tabs">
+  </header>
+  <nav class="tabs">
     <button class="tab active" onclick="showTab('profile')">Профиль</button>
-    <button class="tab" onclick="showTab('deposits')">Вклады</button>
-    <button class="tab" onclick="showTab('game')">Игра</button>
     <button class="tab" onclick="showTab('achievements')">Достижения</button>
-  </div>
+    <button class="tab" onclick="showTab('game')">Игра</button>
+    <button class="tab tab-deposits" onclick="showTab('deposits')">Вклады</button>
+  </nav>
+  <hr class="tabs-separator">
   <div id="profile" class="tab-content active">
-    <h2>Профиль</h2>
-    <div class="avatar"></div>
-    <div class="balance">Баланс: <span id="balance">1000</span> Ф</div>
-    <div class="secret">
-      <div>Секретный код с Финуслуг</div>
-      <div class="code">AB0LD12UY</div>
-      <button class="main-btn" onclick="withdraw()">Вывести Финики</button>
-    </div>
-    <div class="story">
-      <b>Сюжет</b><br>
-      Страна: Z<br>
-      Дата: 24.06.2028
+    <div class="profile-card">
+      <div class="profile-avatar-block">
+        <div class="avatar"><img src="static/imgs/user-male-circle_2.png" alt="Фото профиля" class="avatar-img"></div>
+        <div class="currency-beauty profile-balance-beauty">
+          <span class="currency-icon">💰</span>
+          <span class="currency-label">Доступно на счёте:</span>
+          <span class="currency-value" id="profile-balance-value">1000</span> <span class="currency-unit">Ф</span>
+        </div>
+        <button class="main-btn finuslugi-btn profile-withdraw-btn" onclick="openTransferModal()">Перевести на ФинУслуги</button>
+      </div>
+      <div class="profile-secret-block">
+        <div class="profile-secret-label">🤫 Секретный код с Финуслуг:</div>
+        <button class="profile-secret-toggle" onclick="showSecretCodeModal()">Показать код</button>
+        <div id="secret-code-source" style="display:none;">AB0LD12UY</div>
+      </div>
+      <div class="profile-story-block">
+        <div class="profile-story-title-with-mops">
+          <span class="profile-story-title">🎮 Прогресс в игре:</span>
+          <img src="static/imgs/mops_back_5.png" alt="Мосик" class="profile-mops-img">
+        </div>
+        <div class="profile-story-text">Страна: Z</div>
+        <div class="profile-story-text">Дата: 24.06.2028</div>
+      </div>
     </div>
   </div>
   <div id="deposits" class="tab-content">
-    <h2>Вклады</h2>
-    <div class="currency">Виртуальная валюта: <span id="currency">1200</span> Ф</div>
-    <button class="main-btn" onclick="exchange()">Обменять</button>
-    <button class="main-btn" onclick="continueGame()">Продолжить</button>
-    <div class="section">
-      <b>Финансовые инструменты</b>
-      <div class="desc">Инструменты, позволяющие увеличить ваш доход</div>
-      <div class="deposit">Вклад Т-банка 20% <span class="fin">10 фин.</span></div>
-      <div class="deposit">Инвестиции в акции <span class="fin">5 фин.</span><br><span class="warn">Менее надёжен.</span></div>
+    <div class="currency-beauty">
+      <span class="currency-icon">💰</span>
+      <span class="currency-label">Доступно на счёте:</span>
+      <span class="currency-value" id="deposits-balance-value">1000</span> <span class="currency-unit">Ф</span>
+    </div>
+    <button class="main-btn finuslugi-btn" onclick="openTransferModal()">Перевести на ФинУслуги</button>
+    <hr class="game-separator">
+    <p class="deposits-promo-text">💸 Пользуйтесь выгодой фиников, чтобы оформлять реальные вклады! 💸</p>
+    <hr class="game-separator">
+    <h2 class="section-title">💰 Доступные вклады:</h2>
+    <span class="filter-magnifier" title="Будущий фильтр">🔍</span>
+    <div class="deposits-list" id="deposits-list">
+      <div class="deposit-card" data-term="12" data-minsum="10000">
+        <div class="deposit-title">Вклад Т-банка</div>
+        <div class="deposit-info">Процент: <b>20%</b></div>
+        <div class="deposit-info">Срок: <b>12 мес</b></div>
+        <div class="deposit-info">Мин. сумма: <b>от 10 тыс. руб</b></div>
+      </div>
+      <div class="deposit-card" data-term="6" data-minsum="5000">
+        <div class="deposit-title">Вклад Финуслуг</div>
+        <div class="deposit-info">Процент: <b>15%</b></div>
+        <div class="deposit-info">Срок: <b>6 мес</b></div>
+        <div class="deposit-info">Мин. сумма: <b>от 5 тыс. руб</b></div>
+      </div>
+      <div class="deposit-card" data-term="3" data-minsum="1000">
+        <div class="deposit-title">Вклад Надёжный</div>
+        <div class="deposit-info">Процент: <b>10%</b></div>
+        <div class="deposit-info">Срок: <b>3 мес</b></div>
+        <div class="deposit-info">Мин. сумма: <b>от 1 тыс. руб</b></div>
+      </div>
     </div>
   </div>
   <div id="game" class="tab-content">
-    <h2>Новости</h2>
-    <div class="news">
-      На страну Z наложила санкции страна X.<br>
-      Экономическая ситуация ухудшилась, что влечёт риски для инвесторов.
+    <div class="game-balance-block" style="max-width:380px; margin:0 auto;">
+      <div class="currency-beauty">
+        <span class="currency-icon">💰</span>
+        <span class="currency-label">Доступно на счёте:</span>
+        <span class="currency-value" id="game-balance-value">1000</span> <span class="currency-unit">Ф</span>
+      </div>
+      <button class="main-btn finuslugi-btn" onclick="openTransferModal()">Перевести на ФинУслуги</button>
     </div>
-    <button class="main-btn" onclick="ignore()">Игнорировать</button>
-    <button class="main-btn" onclick="invest()">Инвестировать</button>
+    <hr class="game-separator">
+    <!-- Мопс слева от карты уровней -->
+    <div style="position: relative; display: flex; justify-content: center;">
+
+      <div class="game-levels-wrapper">
+        <div class="game-levels-inner">
+          <!-- Вклады -->
+          <div class="game-levels-row">
+            <img src="static/imgs/mops_all_height_4.png" alt="Мопс" class="game-mops-img-on-map left" />
+            <div class="game-levels">
+              <div class="levels-section-title">Вклады 💰</div>
+              <div class="game-level done zigzag-1" data-level="1"><span class="level-num">1</span></div>
+              <div class="game-level done zigzag-2" data-level="2"><span class="level-num">2</span></div>
+              <div class="game-level done zigzag-1" data-level="3"><span class="level-num">3</span></div>
+              <div class="game-level done zigzag-2" data-level="4"><span class="level-num">4</span></div>
+              <div class="game-level done zigzag-1" data-level="5"><span class="level-num">5</span></div>
+            </div>
+            <img src="static/imgs/Бизнес леди.png" alt="Мопс" class="game-mops-img-on-map right" />
+          </div>
+          <hr class="game-section-line">
+          <!-- Фьючерсы -->
+          <div class="game-levels-row">
+            <img src="static/imgs/mops_all_height_2.png" alt="Мопс" class="game-mops-img-on-map left" />
+            <div class="game-levels">
+              <div class="levels-section-title">Фьючерсы 🤑</div>
+              <div class="game-level available yellow-level zigzag-1" data-level="6"><span class="level-num">6</span></div>
+              <div class="game-level zigzag-2" data-level="7"><span class="level-num">7</span></div>
+              <div class="game-level zigzag-1" data-level="8"><span class="level-num">8</span></div>
+              <div class="game-level zigzag-2" data-level="9"><span class="level-num">9</span></div>
+              <div class="game-level zigzag-1" data-level="10"><span class="level-num">10</span></div>
+            </div>
+            <img src="static/imgs/Бизнесмен.png" alt="Мопс" class="game-mops-img-on-map right" />
+          </div>
+          <hr class="game-section-line">
+          <!-- Акции -->
+          <div class="game-levels-row">
+            <img src="static/imgs/Приветствующий.png" alt="Мопс" class="game-mops-img-on-map left" />
+            <div class="game-levels">
+              <div class="levels-section-title">Акции 💸</div>
+              <div class="game-level zigzag-1" data-level="11"><span class="level-num">11</span></div>
+              <div class="game-level zigzag-2" data-level="12"><span class="level-num">12</span></div>
+              <div class="game-level zigzag-1" data-level="13"><span class="level-num">13</span></div>
+              <div class="game-level zigzag-2" data-level="14"><span class="level-num">14</span></div>
+              <div class="game-level zigzag-1" data-level="15"><span class="level-num">15</span></div>
+            </div>
+            <img src="static/imgs/Учится.png" alt="Мопс" class="game-mops-img-on-map right" />
+          </div>
+          <hr class="game-section-line">
+          <!-- Облигации -->
+          <div class="game-levels-row">
+            <img src="static/imgs/mops_all_height_3.png" alt="Мопс" class="game-mops-img-on-map left" />
+            <div class="game-levels">
+              <div class="levels-section-title">Облигации 💵</div>
+              <div class="game-level zigzag-1" data-level="16"><span class="level-num">16</span></div>
+              <div class="game-level zigzag-2" data-level="17"><span class="level-num">17</span></div>
+              <div class="game-level zigzag-1" data-level="18"><span class="level-num">18</span></div>
+              <div class="game-level zigzag-2" data-level="19"><span class="level-num">19</span></div>
+              <div class="game-level zigzag-1" data-level="20"><span class="level-num">20</span></div>
+            </div>
+            <img src="static/imgs/Довольный смотрит в сторону.png" alt="Мопс" class="game-mops-img-on-map right" />
+          </div>
+          <hr class="game-section-line">
+        </div>
+      </div>
+    </div>
+    <div id="game-mode" style="display:none;">
+      <button class="back-to-map-btn" id="back-to-map-btn">🔙</button>
+      <div class="game-card">
+        <h2>Новости</h2>
+        <div id="news-container" class="news">
+          <p>На страну Z наложила санкции страна X</p>
+          <p>Экономическая ситуация ухудшилась, что влечёт риски для инвесторов</p>
+        </div>
+        <div class="game-actions">
+          <button class="main-btn game-btn" id="ignore-btn">Игнорировать</button>
+          <button class="main-btn game-btn" id="invest-btn">Инвестировать</button>
+        </div>
+      </div>
+    </div>
   </div>
   <div id="achievements" class="tab-content">
-    <h2>Достижения</h2>
-    <ul>
-      <li>Первый вклад открыт</li>
-      <li>Получено 1000 фиников</li>
-      <li>Пройден курс «Копить без стресса»</li>
-    </ul>
+    <div class="achievements-list">
+      <div class="achievement-card done">
+        <span class="achievement-icon">✅</span>
+        <span class="achievement-text">Первый вклад открыт</span>
+      </div>
+      <div class="achievement-card done">
+        <span class="achievement-icon">✅</span>
+        <span class="achievement-text">Получено 1000 фиников</span>
+      </div>
+      <div class="achievement-card done">
+        <span class="achievement-icon">✅</span>
+        <span class="achievement-text">Пройден курс «Копить без стресса»</span>
+      </div>
+      <div class="achievement-card not-done">
+        <span class="achievement-icon">❌</span>
+        <span class="achievement-text">Накопить 5000 фиников</span>
+      </div>
+      <div class="achievement-card not-done">
+        <span class="achievement-icon">❌</span>
+        <span class="achievement-text">Стать гуру инвестиций</span>
+      </div>
+    </div>
+    <div class="current-status-block">
+      <div class="status-text-wrapper">
+        <span class="status-label">Текущий статус:</span>
+        <span class="status-value">Начинающий инвестор</span>
+      </div>
+      <img src="static/imgs/mops_all_height_1.png" alt="Статус" class="status-mops-img">
+    </div>
   </div>
-  <script src="script.js"></script>
+
+  <!-- Модальное окно перевода фиников -->
+  <div id="modal-transfer" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeTransferModal()">&times;</span>
+      <h3>Перевод на ФинУслуги</h3>
+      <p>Введите количество фиников для перевода:</p>
+      <input type="number" id="transfer-amount-input" min="1" placeholder="100" style="width:100px; text-align:center;">
+      <span class="currency-unit">Ф</span>
+      <br>
+      <button class="main-btn" onclick="confirmTransfer()">Перевести</button>
+      <button class="main-btn reset" onclick="closeTransferModal()">Отмена</button>
+    </div>
+  </div>
+
+  <!-- Модальное окно выбора инструмента -->
+  <div id="modal-instruments" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('modal-instruments')">&times;</span>
+      <h3>Выберите финансовый инструмент</h3>
+      <div id="instruments-list"></div>
+      <button class="main-btn" id="choose-instrument-btn">Далее</button>
+    </div>
+  </div>
+  <!-- Модальное окно выбора суммы -->
+  <div id="modal-amount" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('modal-amount')">&times;</span>
+      <h3>Сколько фиников вложить?</h3>
+      <div class="amount-input-wrapper">
+        <input type="number" id="amount-input" min="1" value="10">
+        <span class="currency-unit">Ф</span>
+      </div>
+      <button class="main-btn" id="confirm-amount-btn">Далее</button>
+    </div>
+  </div>
+  <!-- Модальное окно подтверждения -->
+  <div id="modal-confirm" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('modal-confirm')">&times;</span>
+      <h3>Подтвердите выбор</h3>
+      <div id="confirm-info"></div>
+      <button class="main-btn" id="continue-story-btn">Продолжить историю</button>
+    </div>
+  </div>
+  <!-- Модальное окно Мосика -->
+  <div id="modal-mops" class="modal">
+    <div class="modal-content-mops">
+      <span class="modal-close" onclick="closeModal('modal-mops')">&times;</span>
+      <img id="mops-img" src="" alt="Мосик">
+      <div id="mops-message"></div>
+      <button class="main-btn" id="close-mops-btn">OK</button>
+    </div>
+  </div>
+  <!-- Модальное окно для секретного кода -->
+  <div id="modal-secret-code" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeSecretCodeModal()">&times;</span>
+      <h3 class="modal-secret-title">🤫 Ваш секретный код</h3>
+      <p id="modal-secret-code-value" class="profile-secret-code"></p>
+      <button class="main-btn modal-close-btn" onclick="closeSecretCodeModal()">Закрыть</button>
+    </div>
+  </div>
+  <!-- Модальное окно для выбора действия на пройденном уровне -->
+  <div id="modal-level-done" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('modal-level-done')">&times;</span>
+      <h3>Выберите действие</h3>
+      <button class="main-btn" id="replay-level-btn">Пройти заново</button>
+      <button class="main-btn" id="lesson-summary-btn">Конспект урока</button>
+    </div>
+  </div>
+	<div id="theory-page" style="display: none;">
+		<button class="back-to-map-btn" onclick="confirmBackToMap()">← Назад к карте</button>
+		
+		<div class="theory-container">
+			<div class="theory-slide active" data-slide="1">
+				<h2>📰 Фьючерсы: Основы</h2>
+				<div class="theory-content">
+					<p>Фьючерс - это контракт на покупку или продажу актива в будущем по фиксированной цене.</p>
+				</div>
+			</div>
+			
+			<div class="theory-slide" data-slide="2">
+				<h2>📰 Виды фьючерсов</h2>
+				<div class="theory-content">
+					<p>1. <b>Товарные</b> - нефть, золото, зерно</p>
+					<p>2. <b>Финансовые</b> - на индексы, валюты, акции</p>
+				</div>
+			</div>
+			
+			<div class="theory-slide" data-slide="3">
+				<h2>📰 Тест по фьючерсам</h2>
+				<div class="theory-content">
+					<p>Что из перечисленного НЕ является характеристикой фьючерса?</p>
+					<div class="test-options">
+						<label><input type="radio" name="test" value="1"> Фиксированная цена</label>
+						<label><input type="radio" name="test" value="2"> Обязательство сторон</label>
+						<label><input type="radio" name="test" value="3" class="correct"> Гарантированная прибыль</label>
+						<label><input type="radio" name="test" value="4"> Определённый срок</label>
+					</div>
+					<button class="main-btn check-test-btn">Проверить</button>
+				</div>
+			</div>
+		</div>
+		
+		<div class="theory-nav">
+			<button class="nav-btn prev-btn">⬅️ Назад</button>
+			<span class="page-counter">1/3</span>
+			<button class="nav-btn next-btn locked">Вперёд ➡️</button>
+		</div>		
+		
+		
+	</div>	
+	<div id="modal-confirm-exit" class="modal">
+		<div class="modal-content">
+			<!-- Контент будет генерироваться динамически -->
+		</div>
+	</div>
+
 </body>
 </html>
