@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финсимулятор</title>
+    <link rel="stylesheet" href="/Users/hissikly/Documents/fingrow_project/finsimulator_web/static/style.css">
+    <script src="/static/script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-badge">ФИНИК УСЛУГИ</div>
+                <div class="logo-text">личный кабинет</div>
+            </div>
+            <div class="greeting">Привет, Ирина 👋</div>
+            <div class="user-info">
+                <div class="level-badge">
+                    🔵 Продвинутый уровень
+                </div>
+                <div class="user-icon">👤</div>
+                <div class="user-icon">🎧</div>
+            </div>
+        </header>
+
+        <div class="quick-actions">
+            <button class="action-btn" data-action="ios-update">
+                <div class="action-icon">📱</div>
+                <div class="action-text">Обновление для iOS</div>
+            </button>
+            <button class="action-btn" data-action="profit-news">
+                <div class="action-icon">📰</div>
+                <div class="action-text">Новости о Профите</div>
+            </button>
+            <button class="action-btn" data-action="telegram-channel">
+                <div class="action-icon">💬</div>
+                <div class="action-text">Telegram-канал Финуслуг</div>
+            </button>
+            <button class="action-btn" data-action="credit-ban">
+                <div class="action-icon">⏰</div>
+                <div class="action-text">Самозапрет на кредиты</div>
+            </button>
+            <button class="action-btn" data-action="name-change">
+                <div class="action-icon">📋</div>
+                <div class="action-text">Сменили фамилию?</div>
+            </button>
+            <button class="action-btn" data-action="conscious-spending">
+                <div class="action-icon">💡</div>
+                <div class="action-text">Как тратить осознанно?</div>
+            </button>
+        </div>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <div class="sidebar-item active" data-section="products">
+                    <div class="sidebar-icon">📊</div>
+                    <span>Мои продукты</span>
+                </div>
+                <div class="sidebar-item" data-section="assets">
+                    <div class="sidebar-icon">⏰</div>
+                    <span>Активы</span>
+                </div>
+                <div class="sidebar-item" data-section="showcase">
+                    <div class="sidebar-icon">🏆</div>
+                    <span>Витрина</span>
+                </div>
+                <div class="sidebar-item" data-section="notifications">
+                    <div class="sidebar-icon">🔔</div>
+                    <span>Уведомления</span>
+                </div>
+                <div class="sidebar-item" data-section="chat">
+                    <div class="sidebar-icon">💬</div>
+                    <span>Чат</span>
+                </div>
+            </aside>
+
+            <main class="content-area">
+                <section class="products-section">
+                    <h2 class="section-title">Мои продукты</h2>
+                    <div class="products-grid">
+                        <div class="product-card" data-product="spend-bonus">
+                            <h3>Потратить бонусы</h3>
+                            <div class="product-category">Фиников</div>
+                            <div class="product-value">2050 <span class="date-emoji">🌴</span></div>
+                        </div>
+                        <div class="product-card" data-product="invite-friends">
+                            <h3>Пригласите друзей</h3>
+                            <div class="product-value reward">Получите 2000 <span class="date-emoji">🌴</span></div>
+                        </div>
+                        <div class="product-card full-width-card" data-product="all-assets">
+                            <h3>Все активы</h3>
+                            <div class="product-value">60 000 <span class="date-emoji">🌴</span></div>
+                        </div>
+                    </div>
+
+                    <div class="balance-cards">
+                        <div class="balance-card">
+                            <h3>Баланс Кошелька</h3>
+                            <div class="balance-value">0 <span class="date-emoji">🌴</span></div>
+                            <button class="btn btn-primary" data-action="refill-wallet">Пополнить</button>
+                        </div>
+                        <div class="balance-card">
+                            <h3>Бонусный счет</h3>
+                            <div class="bonus-description">Получите 18% на остаток на Кошельке</div>
+                            <button class="btn btn-secondary" data-action="activate-bonus">Активировать</button>
+                        </div>
+                    </div>
+
+                    <div class="insurance-section">
+                        <h3 class="insurance-title">Страхование</h3>
+                        <div class="insurance-controls">
+                            <span>Посмотреть все продукты</span>
+                            <button class="btn btn-secondary" data-action="view-insurance">Посмотреть →</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <aside class="tasks-panel">
+                <div class="tasks-header">
+                    <h3>Задания от Финуслуг</h3>
+                    <div class="tasks-icon">⚡</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%"></div>
+                </div>
+                
+                <div class="task-item" data-task="repeat-deposit">
+                    <span>Открыть повторный вклад от 100 000 <span class="date-emoji">🌴</span></span>
+                    <div class="date-badge">14 дней</div>
+                </div>
+                
+                <div class="task-item" data-task="3-month-deposit">
+                    <span>Открыть повторный вклад на 3 месяца</span>
+                    <div class="date-badge">14 дней</div>
+                </div>
+                
+                <div class="task-item" data-task="3-deposits">
+                    <span>Открыть 3 вклада</span>
+                    <div class="date-badge">0/3</div>
+                </div>
+                
+                <div class="task-item" data-task="leave-review">
+                    <span>Оставить отзыв</span>
+                    <div class="task-reward">+200 <span class="date-emoji">🌴</span></div>
+                </div>
+                
+                <div class="task-item" data-task="invite-friend">
+                    <span>Пригласить друга</span>
+                    <div class="task-reward">+500 <span class="date-emoji">🌴</span></div>
+                </div>
+                
+                <div class="task-item" data-task="buy-bond">
+                    <span>Купить облигацию</span>
+                    <div class="task-reward">+150 <span class="date-emoji">🌴</span></div>
+                </div>
+                
+                <div class="task-item" data-task="buy-osago">
+                    <span>Купить ОСАГО</span>
+                    <div class="task-reward">+100 <span class="date-emoji">🌴</span></div>
+                </div>
+                
+                <div class="task-item" data-task="credit-rating">
+                    <span>Узнать кредитный рейтинг</span>
+                    <div class="task-reward">+100 <span class="date-emoji">🌴</span></div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Notification container -->
+    <div id="notification-container"></div>
+</body>
+</html>

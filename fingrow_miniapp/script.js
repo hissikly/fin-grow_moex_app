@@ -426,7 +426,7 @@ function initLevelDoneHandlers() {
       const levelNum = this.getAttribute('data-level');
       
       if (levelNum === '7') {
-        alert('Этот уровень пока не реализован. Скоро будет доступен!');
+        alert('Здесь должна быть практика по открытию вкладов');
       } else if (levelNum === '6') {
         showTheoryPage();
       }
