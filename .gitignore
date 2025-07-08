@@ -1,1 +1,4 @@
 .env
+finsimulator_web/
+config.js
+main.py

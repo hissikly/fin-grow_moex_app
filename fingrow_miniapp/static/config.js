@@ -1,1 +1,1 @@
-const MINIAPP_URL = "https://8e6f-81-177-214-179.ngrok-free.app";
+const MINIAPP_URL = "https://8aafabb41749.ngrok-free.app";
